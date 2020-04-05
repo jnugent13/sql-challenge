@@ -70,3 +70,7 @@ emp_no IN (
 	)
 );
 
+SELECT last_name, count(last_name) AS "Count of Last Name"
+FROM employees
+GROUP BY last_name
+ORDER BY "Count of Last Name" DESC;
