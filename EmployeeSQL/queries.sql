@@ -9,4 +9,5 @@ employees.emp_no = salaries.emp_no;
 
 SELECT * 
 FROM employees
-WHERE hire_date = '1986-__-__';
+WHERE hire_date LIKE '1986-__-__';
+
