@@ -34,11 +34,17 @@ INNER JOIN employees ON
 	  INNER JOIN departments ON
 	  dept_emp.dept_no = departments.dept_no);
 
+SELECT * FROM employees
+WHERE first_name = 'Hercules' AND
+last_name LIKE 'B%';
+
 SELECT employees.emp_no, 
 employees.last_name, 
-employees.first_name
-FROM employees
-WHERE emp_no IN (
+employees.first_name,
+departments.dept_name
+FROM employees, departments
+WHERE departments.dept_name = 'Sales' AND
+emp_no IN (
 	SELECT emp_no
 	FROM dept_emp
 	WHERE dept_no IN (
@@ -48,7 +54,19 @@ WHERE emp_no IN (
 	)
 );
 
-SELECT * FROM employees
-WHERE first_name = 'Hercules' AND
-last_name LIKE 'B%';
+SELECT employees.emp_no, 
+employees.last_name, 
+employees.first_name,
+departments.dept_name
+FROM employees, departments
+WHERE departments.dept_name IN ('Sales', 'Development') AND
+emp_no IN (
+	SELECT emp_no
+	FROM dept_emp
+	WHERE dept_no IN (
+		(SELECT dept_no
+		 FROM departments
+		 WHERE dept_name IN ('Sales','Development'))
+	)
+);
 
