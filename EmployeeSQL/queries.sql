@@ -42,9 +42,13 @@ SELECT employees.emp_no,
 employees.last_name, 
 employees.first_name,
 departments.dept_name
-FROM employees, departments
+FROM ((dept_emp
+	  INNER JOIN employees ON
+	  dept_emp.emp_no = employees.emp_no)
+	 INNER JOIN departments ON
+	 dept_emp.dept_no = departments.dept_no)
 WHERE departments.dept_name = 'Sales' AND
-emp_no IN (
+employees.emp_no IN (
 	SELECT emp_no
 	FROM dept_emp
 	WHERE dept_no IN (
@@ -58,9 +62,13 @@ SELECT employees.emp_no,
 employees.last_name, 
 employees.first_name,
 departments.dept_name
-FROM employees, departments
+FROM ((dept_emp
+	   INNER JOIN employees ON
+	   dept_emp.emp_no = employees.emp_no)
+	  INNER JOIN departments ON
+	  dept_emp.dept_no = departments.dept_no)
 WHERE departments.dept_name IN ('Sales', 'Development') AND
-emp_no IN (
+employees.emp_no IN (
 	SELECT emp_no
 	FROM dept_emp
 	WHERE dept_no IN (
